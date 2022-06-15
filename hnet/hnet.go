@@ -14,7 +14,7 @@ import (
 
 func Url_selection(url string) {
 
-	if strings.Contains(url, "https://github.com/rwxrob/boost/blob/2022/") {
+	if strings.Contains(url, "https://github.com/rwxrob/boost/") {
 
 		fmt.Println("You selected GitHub")
 

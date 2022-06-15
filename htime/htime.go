@@ -28,7 +28,7 @@ func Offset_validation() int {
 
 		if valid_offset {
 
-			offset = strings.Replace(offset, ":", "", 1)
+			offset = strings.Replace(offset, ":", "", -1)
 
 			offset_int = Clock_to_calc(offset)
 			choice = "s"

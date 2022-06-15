@@ -16,12 +16,12 @@ func Filter_github(str string) {
 	fmt.Println()
 	fmt.Println("**************** GITHUB ***************")
 	fmt.Println("***************************************")
-	section := regexp.MustCompile(`START[\S\s]*\(\d*\)`)
+	section := regexp.MustCompile(`((START)|<ul dir="auto">)[\S\s]*\(\d{14}\)`)
 	block := section.FindAllString(str, -1)
 
 	rep := strings.NewReplacer(
-		"<li>", "-   ",
-		"</li>", "\r",
+		"<li>", "-  ",
+		"</li>", "",
 		"<p dir=\"auto\">", "",
 		"<ul dir=\"auto\">", "",
 		"<ul>", "",
@@ -32,7 +32,7 @@ func Filter_github(str string) {
 	)
 	clean_raw := rep.Replace(block[0])
 
-	var validID = regexp.MustCompile(`[[:digit:]]{14}`)
+	var validID = regexp.MustCompile(`(\d{14})`)
 	isomatch := validID.FindAllString(clean_raw, -1)
 
 	offset := htime.Offset_validation()
@@ -49,7 +49,7 @@ func Filter_youtube(str string) {
 	fmt.Println("****************************************")
 
 	first := regexp.MustCompile(`descriptionBodyText":{(\S\w.*)\((\d{14})\)`)
-	second := regexp.MustCompile(`START.*`)
+	second := regexp.MustCompile(`(START.*)?(-).*`)
 	sa := first.FindAllString(str, -1)
 	if sa == nil {
 		fmt.Println()
@@ -65,7 +65,7 @@ func Filter_youtube(str string) {
 	)
 	clean_raw := rep.Replace(sb[0])
 
-	var validID = regexp.MustCompile(`[[:digit:]]{14}`)
+	var validID = regexp.MustCompile(`(\d{14})`)
 	isomatch := validID.FindAllString(clean_raw, -1)
 
 	offset := htime.Offset_validation()
